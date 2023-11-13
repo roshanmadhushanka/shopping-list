@@ -6,9 +6,10 @@ import Item from "./item.component";
 
 const ListItem: React.FC = () => {
 
-    const items = useSelector(selectAllItems);
+    // Use slice to make a copy of the array and then reverse it. Otherwise it tries to reverse the original array, which gives an error
+    const orderedItems = useSelector(selectAllItems).slice().reverse();  
     return(
-        <FlatList data={items} keyExtractor={(item, index) => `${item.item}-${index}`} renderItem={({item}) => (
+        <FlatList data={orderedItems} keyExtractor={(item, index) => `${item.item}-${index}`} renderItem={({item}) => (
             <Item item={item.item} quantity={item.quantity}/>
         )}/>
     )
