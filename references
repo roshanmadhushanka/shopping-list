@@ -1,0 +1,3 @@
+npx create-expo-app -t expo-template-blank-typescript
+
+https://blog.logrocket.com/using-typescript-with-react-native/
