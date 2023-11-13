@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-
-export interface Item {
-    item: string,
-    quantity: number,
-}
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { addItem } from "../redux/shopping-list/shopping-list.slice";
 
 const styles = StyleSheet.create({
     heading: {
@@ -34,8 +32,22 @@ const styles = StyleSheet.create({
 });
 
 const AddItem: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+
     const [item, setItem] = useState("");
     const [quantity, setQuantity] = useState("");
+    const [addItemButtonDisable, setAddItemButtonDisable] = useState(true);
+
+    let quantiyValue = Number(quantity) || 0;
+
+    const onAddToList = () => {
+        if (item && item.length > 0 && quantity && quantiyValue > 0) {
+            dispatch(addItem({item, quantity: quantiyValue}));
+            setItem("");
+            setQuantity("");
+        }
+        
+    }
 
     return(
         <View>
@@ -43,7 +55,7 @@ const AddItem: React.FC = () => {
             <View style={styles.form}>
                 <TextInput style={styles.input} placeholder="Enter Item" value={item} onChangeText={text => setItem(text)}/>
                 <TextInput style={styles.input} passwordRules="Enter Quantity" keyboardType="numeric" value={quantity} onChangeText={quantity => setQuantity(quantity)}/>
-                <TouchableOpacity style={styles.addItemButton} onPress={() => {}}>
+                <TouchableOpacity style={styles.addItemButton} onPress={onAddToList}>
                     <Text style={styles.buttonText}>Add Item</Text>
                 </TouchableOpacity>
             </View>
