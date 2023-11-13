@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
+import {store} from "./redux/store";
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Header from './components/header.component';
-import AddItem, {Item} from './components/add-item.component';
+import AddItem from './components/add-item.component';
+import ListItem from './components/list-item.component';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,15 +17,17 @@ const styles = StyleSheet.create({
 });
 
 const App = () => {
-  const [shoppingList, setShoppingList] = useState<Item[]>([]);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Header title="Shoping List"/>
-      <View style={styles.contentWrapper}>
-        <AddItem/>
-      </View>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <Header title="Shoping List"/>
+          <View style={styles.contentWrapper}>
+            <AddItem/>
+            <ListItem/>
+          </View>
+      </SafeAreaView>
+    </Provider>
+    
   );
 }
 
