@@ -5,6 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Header from './components/header.component';
 import AddItem from './components/add-item.component';
 import ListItem from './components/list-item.component';
+import 'react-native-get-random-values';
 
 const styles = StyleSheet.create({
   container: {

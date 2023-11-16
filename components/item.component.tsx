@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const Item: React.FC<ItemDto> = ({item, quantity}) => {
+const Item: React.FC<ItemDto> = ({id, item, quantity}) => {
     return(
         <View style={styles.item}>
             <Text style={styles.item}>{item}</Text>

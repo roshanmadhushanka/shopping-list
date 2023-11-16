@@ -10,7 +10,7 @@ const ListItem: React.FC = () => {
     const orderedItems = useSelector(selectAllItems).slice().reverse();  
     return(
         <FlatList data={orderedItems} keyExtractor={(item, index) => `${item.item}-${index}`} renderItem={({item}) => (
-            <Item item={item.item} quantity={item.quantity}/>
+            <Item id={item.id} item={item.item} quantity={item.quantity}/>
         )}/>
     )
 }

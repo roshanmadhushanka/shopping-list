@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-nativ
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { addItem } from "../redux/shopping-list/shopping-list.slice";
+import {v4 as uuidv4} from 'uuid';
 
 const styles = StyleSheet.create({
     heading: {
@@ -42,7 +43,7 @@ const AddItem: React.FC = () => {
 
     const onAddToList = () => {
         if (item && item.length > 0 && quantity && quantiyValue > 0) {
-            dispatch(addItem({item, quantity: quantiyValue}));
+            dispatch(addItem({id: uuidv4(), item, quantity: quantiyValue}));
             setItem("");
             setQuantity("");
         }

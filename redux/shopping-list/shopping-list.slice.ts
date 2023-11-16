@@ -1,7 +1,9 @@
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
+
 export interface ItemDto {
+    id: string,
     item: string,
     quantity: number,
 };
@@ -18,14 +20,6 @@ const addItemReducer: CaseReducer<ShoppingListState, PayloadAction<ItemDto>> = (
     state.items.push(action.payload);
     return state;
 }
-
-// const shoppingListSlice = createSlice({
-//     name: "shoppingList",
-//     initialState,
-//     reducers: {
-//         addItem: addItemReducer,
-//     },
-// });
 
 const shoppingListSlice = createSlice({
     name: "shoppingList",
