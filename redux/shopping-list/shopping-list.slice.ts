@@ -1,6 +1,6 @@
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
+import { State } from "react-native-gesture-handler";
 
 export interface ItemDto {
     id: string,
@@ -10,15 +10,31 @@ export interface ItemDto {
 
 export interface ShoppingListState {
     items: ItemDto[],
+    contextMenuVisible: boolean,
+    selectedItem: ItemDto | null,
 };
 
 const initialState: ShoppingListState = {
     items: [],
+    contextMenuVisible: false,
+    selectedItem: null,
 };
 
 const addItemReducer: CaseReducer<ShoppingListState, PayloadAction<ItemDto>> = (state, action) => {
     state.items.push(action.payload);
     return state;
+}
+
+const setlectItemReducer: CaseReducer<ShoppingListState, PayloadAction<string>> = (state, action) => {
+    let selectedItem = state.items.find(element => element.id === action.payload);
+    if (selectedItem) {
+        state.selectedItem = selectedItem;
+        state.contextMenuVisible = true;
+    }
+}
+
+const removeItemReducer: CaseReducer<ShoppingListState, PayloadAction<string>> = (state, action) => {
+    state.items = state.items.filter((item) => item.id !== action.payload);
 }
 
 const shoppingListSlice = createSlice({
@@ -27,11 +43,17 @@ const shoppingListSlice = createSlice({
     reducers: {
         addItem(state, action: PayloadAction<ItemDto>) {
             addItemReducer(state, action);
+        },
+        selectItem(state, action: PayloadAction<string>) {
+            setlectItemReducer(state, action);
+        },
+        removeItem(state, action: PayloadAction<string>) {
+            removeItemReducer(state, action);
         }
     },
 });
 
-
-export const {addItem} = shoppingListSlice.actions;
+export const {addItem, selectItem} = shoppingListSlice.actions;
 export const selectAllItems = (state: RootState) => state.shoppingList.items;
+export const isContextMenuVisible = (state: RootState) => state.shoppingList.contextMenuVisible;
 export default shoppingListSlice.reducer;

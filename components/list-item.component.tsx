@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, View } from "react-native";
 import { selectAllItems } from "../redux/shopping-list/shopping-list.slice";
 import { useSelector } from "react-redux";
+
 import Item from "./item.component";
 
 const ListItem: React.FC = () => {

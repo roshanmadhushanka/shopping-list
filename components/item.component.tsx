@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { ItemDto } from "../redux/shopping-list/shopping-list.slice";
+import { LongPressGestureHandler, State } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
     item: {
@@ -25,11 +26,16 @@ const styles = StyleSheet.create({
 });
 
 const Item: React.FC<ItemDto> = ({id, item, quantity}) => {
+
+    
+
     return(
-        <View style={styles.item}>
-            <Text style={styles.item}>{item}</Text>
-            <Text style={styles.quantity}>x{quantity}</Text>
-        </View>
+        <LongPressGestureHandler onHandlerStateChange={}>
+            <View style={styles.item}>
+                <Text style={styles.item}>{item}</Text>
+                <Text style={styles.quantity}>x{quantity}</Text>
+            </View>
+        </LongPressGestureHandler>
     )
 }
 
