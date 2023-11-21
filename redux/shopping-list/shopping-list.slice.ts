@@ -29,6 +29,8 @@ const setlectItemReducer: CaseReducer<ShoppingListState, PayloadAction<string>> 
     if (selectedItem) {
         state.selectedItem = selectedItem;
         state.contextMenuVisible = true;
+    } else {
+        state.selectedItem = null;
     }
 }
 
