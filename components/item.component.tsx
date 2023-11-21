@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { ItemDto } from "../redux/shopping-list/shopping-list.slice";
-import { LongPressGestureHandler, State } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { ItemDto, getSelectedItem, selectItem } from "../redux/shopping-list/shopping-list.slice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../redux/store";
 
 const styles = StyleSheet.create({
     item: {
@@ -27,15 +28,23 @@ const styles = StyleSheet.create({
 
 const Item: React.FC<ItemDto> = ({id, item, quantity}) => {
 
-    
+    const dispatch = useDispatch<AppDispatch>();
+    const currentItem = useSelector(getSelectedItem);
+
+    const handleLongPress = () => {
+        dispatch(selectItem(id))
+    }
 
     return(
-        <LongPressGestureHandler onHandlerStateChange={}>
-            <View style={styles.item}>
-                <Text style={styles.item}>{item}</Text>
-                <Text style={styles.quantity}>x{quantity}</Text>
-            </View>
-        </LongPressGestureHandler>
+        <View>
+            <TouchableHighlight onLongPress={handleLongPress}>
+                <View style={styles.item}>
+                    <Text style={styles.item}>{item}</Text>
+                    <Text style={styles.quantity}>x{quantity}</Text>
+                </View>
+            </TouchableHighlight>
+            {(currentItem && currentItem.id === id) && <Text style={styles.quantity}>Long press detected!</Text>}
+        </View>
     )
 }
 

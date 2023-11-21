@@ -1,6 +1,5 @@
 import { CaseReducer, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { State } from "react-native-gesture-handler";
 
 export interface ItemDto {
     id: string,
@@ -56,4 +55,5 @@ const shoppingListSlice = createSlice({
 export const {addItem, selectItem} = shoppingListSlice.actions;
 export const selectAllItems = (state: RootState) => state.shoppingList.items;
 export const isContextMenuVisible = (state: RootState) => state.shoppingList.contextMenuVisible;
+export const getSelectedItem = (state: RootState) => state.shoppingList.selectedItem;
 export default shoppingListSlice.reducer;
